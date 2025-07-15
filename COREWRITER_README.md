@@ -157,7 +157,7 @@ El contrato implementa el encoding correcto según la documentación:
 ### hyperEVM Testnet
 - **Chain ID**: 998
 - **RPC URL**: `https://rpc.hyperliquid-testnet.xyz/evm`
-- **Explorer**: `https://explorer.hyperliquid-testnet.xyz`
+- **Explorer**: `https://testnet.purrsec.com/`
 - **CoreWriter Address**: `0x3333333333333333333333333333333333333333`
 
 ### Configuración en scaffold.config.ts
@@ -176,7 +176,7 @@ const hyperEVMTestnet = {
     public: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
   },
   blockExplorers: {
-    default: { name: "HyperEVM Testnet Explorer", url: "https://explorer.hyperliquid-testnet.xyz" },
+    default: { name: "HyperEVM Testnet Explorer", url: "https://testnet.purrsec.com/" },
   },
 };
 ```
@@ -228,7 +228,7 @@ Para problemas o preguntas:
 
 - [Documentación de hyperEVM](https://docs.hyperliquid.xyz/)
 - [Documentación de CoreWriter](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
-- [Explorador de hyperEVM Testnet](https://explorer.hyperliquid-testnet.xyz)
+- [Explorador de hyperEVM Testnet](https://testnet.purrsec.com/)
 - [Faucet de hyperEVM](https://faucet.hyperliquid-testnet.xyz) (si está disponible)
 
 ## 📝 Ejemplos de Uso

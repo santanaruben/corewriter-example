@@ -5,7 +5,7 @@ Este proyecto es una integración real de CoreWriter sobre hyperEVM testnet, usa
 ## 🚀 Características principales
 - **Contrato CoreWriter real**: Todas las funciones principales de CoreWriter implementadas y expuestas.
 - **Despliegue y pruebas en hyperEVM testnet**.
-- **Frontend NextJS** con UI dedicada en `/corewriter` para interactuar con el contrato.
+- **Frontend NextJS** con UI dedicada para interactuar con el contrato.
 - **Soporte para acciones rápidas, historial y ayuda contextual**.
 
 ---
@@ -67,7 +67,6 @@ Este proyecto es una integración real de CoreWriter sobre hyperEVM testnet, usa
 ## 🧪 Pruebas
 
 ```bash
-cd packages/hardhat
 yarn test
 ```
 
@@ -77,7 +76,7 @@ yarn test
 - **hyperEVM Testnet**
   - Chain ID: 998
   - RPC: https://rpc.hyperliquid-testnet.xyz/evm
-  - Explorer: https://explorer.hyperliquid-testnet.xyz
+  - Explorer: https://testnet.purrsec.com/
 
 ---
 

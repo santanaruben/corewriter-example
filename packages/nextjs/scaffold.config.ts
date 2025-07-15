@@ -28,7 +28,7 @@ const hyperEVMTestnet = {
     public: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
   },
   blockExplorers: {
-    default: { name: "HyperEVM Testnet Explorer", url: "https://explorer.hyperliquid-testnet.xyz" },
+    default: { name: "HyperEVM Testnet Explorer", url: "https://testnet.purrsec.com/" },
   },
 } as const;
 
