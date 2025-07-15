@@ -12,15 +12,18 @@ import "hardhat-deploy-ethers";
 import { task } from "hardhat/config";
 import generateTsAbis from "./scripts/generateTsAbis";
 
-// If not set, it uses ours Alchemy's default API key.
-// You can get your own at https://dashboard.alchemyapi.io
+// Configuración de variables de entorno
+const MNEMONIC = process.env.MNEMONIC;
 const providerApiKey = process.env.ALCHEMY_API_KEY || "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
-// If not set, it uses the hardhat account 0 private key.
-// You can generate a random account with `yarn generate` or `yarn account:import` to import your existing PK
 const deployerPrivateKey =
   process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY ?? "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-// If not set, it uses our block explorers default API keys.
 const etherscanApiKey = process.env.ETHERSCAN_V2_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
+
+// Verificar que MNEMONIC esté configurado para hyperEVM
+if (!MNEMONIC) {
+  console.warn("⚠️  MNEMONIC no está configurado en las variables de entorno.");
+  console.warn("💡 Crea un archivo .env en packages/hardhat/ con tu MNEMONIC para desplegar en hyperEVM testnet.");
+}
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -37,7 +40,7 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "hyperevmTestnet",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -52,6 +55,42 @@ const config: HardhatUserConfig = {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
+    },
+    hyperevmTestnet: {
+      chainId: 998, // Chain ID de HyperEVM testnet
+      url: "https://rpc.hyperliquid-testnet.xyz/evm", // URL de testnet
+      accounts: MNEMONIC
+        ? {
+            mnemonic: MNEMONIC,
+            path: "m/44'/60'/0'/0",
+            initialIndex: 0,
+            count: 20,
+          }
+        : {
+            mnemonic: "test test test test test test test test test test test junk",
+            path: "m/44'/60'/0'/0",
+            initialIndex: 0,
+            count: 20,
+          },
+      gas: 12000000,
+    },
+    hyperevmMainnet: {
+      chainId: 999, // Chain ID de HyperEVM mainnet
+      url: "https://rpc.hyperliquid.xyz/evm", // URL de mainnet
+      accounts: MNEMONIC
+        ? {
+            mnemonic: MNEMONIC,
+            path: "m/44'/60'/0'/0",
+            initialIndex: 0,
+            count: 20,
+          }
+        : {
+            mnemonic: "test test test test test test test test test test test junk",
+            path: "m/44'/60'/0'/0",
+            initialIndex: 0,
+            count: 20,
+          },
+      gas: 12000000,
     },
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,

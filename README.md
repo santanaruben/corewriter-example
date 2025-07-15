@@ -1,80 +1,94 @@
-# 🏗 Scaffold-ETH 2
+# CoreWriter dApp - Scaffold-ETH 2 + hyperEVM
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+Este proyecto es una integración real de CoreWriter sobre hyperEVM testnet, usando Scaffold-ETH 2 (NextJS, Hardhat, Wagmi, Typescript).
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+## 🚀 Características principales
+- **Contrato CoreWriter real**: Todas las funciones principales de CoreWriter implementadas y expuestas.
+- **Despliegue y pruebas en hyperEVM testnet**.
+- **Frontend NextJS** con UI dedicada en `/corewriter` para interactuar con el contrato.
+- **Soporte para acciones rápidas, historial y ayuda contextual**.
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+---
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+## 📦 Estructura del proyecto
+- `packages/hardhat/` - Contratos, scripts de despliegue y pruebas.
+- `packages/nextjs/` - Frontend NextJS, hooks y componentes para interactuar con el contrato.
+- Página principal: [`/`](./packages/nextjs/app/page.tsx) - Interfaz completa de CoreWriter
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+---
 
-## Requirements
+## 🛠️ Instalación y configuración
 
-Before you begin, you need to install the following tools:
+1. **Instala dependencias**
+   ```bash
+   yarn install
+   ```
+2. **Configura tu cuenta y mnemonic**
+   - Crea el archivo `packages/hardhat/.env`:
+     ```env
+     MNEMONIC="tus 12 palabras aquí"
+     ```
+   - Asegúrate de tener fondos en la testnet de hyperEVM.
+3. **Configura tu cuenta para usar HyperEVM Big Blocks**
+   - Entra en https://hyperevm-block-toggle.vercel.app/
+   - Asegúrate de tener fondos en la testnet de hyperEVM.
+   - Coloca el toggle de arriba en Testnet
+   - Haz click sobre el botón BIG para poder usar los HyperEVM Big Blocks
+4. **Despliega el contrato**
+   ```bash
+   yarn deploy:hyperevmTestnet
+   ```
+5. **Inicia el frontend**
+   ```bash
+   yarn start
+   # o
+   yarn dev
+   ```
+6. **Abre la interfaz principal**
+   - Ve a [http://localhost:3000](http://localhost:3000)
 
-- [Node (>= v20.18.3)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+---
 
-## Quickstart
+## ✨ ¿Qué puedes hacer?
+- Usar **acciones rápidas** para probar todas las funciones principales de CoreWriter:
+  - Enviar órdenes límite
+  - Transferir vault
+  - Delegar tokens
+  - Staking
+  - Enviar tokens spot
+  - Transferir USD class
+  - Finalizar contratos EVM
+  - Agregar wallets API
+- Ver el **historial de acciones** creadas y ejecutadas por tu cuenta.
+- Consultar **ayuda contextual** y ejemplos de uso.
 
-To get started with Scaffold-ETH 2, follow the steps below:
+---
 
-1. Install dependencies if it was skipped in CLI:
+## 🧪 Pruebas
 
+```bash
+cd packages/hardhat
+yarn test
 ```
-cd my-dapp-example
-yarn install
-```
 
-2. Run a local network in the first terminal:
+---
 
-```
-yarn chain
-```
+## 🌐 Redes soportadas
+- **hyperEVM Testnet**
+  - Chain ID: 998
+  - RPC: https://rpc.hyperliquid-testnet.xyz/evm
+  - Explorer: https://explorer.hyperliquid-testnet.xyz
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/hardhat/hardhat.config.ts`.
+---
 
-3. On a second terminal, deploy the test contract:
+## 📚 Recursos útiles
+- [Documentación oficial de CoreWriter](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
+- [Scaffold-ETH 2](https://github.com/scaffold-eth/se-2)
+- [hyperEVM](https://docs.hyperliquid.xyz/)
 
-```
-yarn deploy
-```
+---
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-Run smart contract test with `yarn hardhat:test`
-
-- Edit your smart contracts in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
-
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+## 📝 Notas
+- La página principal está completamente adaptada para CoreWriter con formularios amigables y historial de acciones.
+- Puedes seguir usando `/debug` para interactuar con cualquier contrato desplegado de forma avanzada.
+- Si tienes dudas, revisa el archivo `COREWRITER_README.md` para detalles técnicos y ejemplos avanzados.

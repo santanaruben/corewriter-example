@@ -13,9 +13,28 @@ export type ScaffoldConfig = BaseConfig;
 
 export const DEFAULT_ALCHEMY_API_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
+// Configuración personalizada para hyperEVM testnet
+const hyperEVMTestnet = {
+  id: 998,
+  name: "HyperEVM Testnet",
+  network: "hyperevm-testnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Ether",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    default: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
+    public: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
+  },
+  blockExplorers: {
+    default: { name: "HyperEVM Testnet Explorer", url: "https://explorer.hyperliquid-testnet.xyz" },
+  },
+} as const;
+
 const scaffoldConfig = {
   // The networks on which your DApp is live
-  targetNetworks: [chains.hardhat],
+  targetNetworks: [hyperEVMTestnet],
   // The interval at which your front-end polls the RPC servers for new data (it has no effect if you only target the local network (default is 4000))
   pollingInterval: 30000,
   // This is ours Alchemy's default API key.
@@ -26,15 +45,15 @@ const scaffoldConfig = {
   // If you want to use a different RPC for a specific network, you can add it here.
   // The key is the chain ID, and the value is the HTTP RPC URL
   rpcOverrides: {
-    // Example:
-    // [chains.mainnet.id]: "https://mainnet.buidlguidl.com",
+    // HyperEVM testnet RPC override
+    [hyperEVMTestnet.id]: "https://rpc.hyperliquid-testnet.xyz/evm",
   },
   // This is ours WalletConnect's default project ID.
   // You can get your own at https://cloud.walletconnect.com
   // It's recommended to store it in an env variable:
   // .env.local for local testing, and in the Vercel/system env config for live apps.
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "3a8170812b534d0ff9d794f19a901d64",
-  onlyLocalBurnerWallet: true,
+  onlyLocalBurnerWallet: false, // Permitir burner wallet en testnet
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;
