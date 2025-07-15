@@ -1,48 +1,48 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  console.log("🔍 Verificando configuración de cuenta para hyperEVM testnet...");
+  console.log("🔍 Checking account configuration for hyperEVM testnet...");
 
-  // Obtener el proveedor de la red
+  // Get the network provider
   const provider = ethers.provider;
   const network = await provider.getNetwork();
 
-  console.log("🌐 Red actual:", network.name);
-  console.log("🔢 Chain ID:", network.chainId);
+  console.log("🌐 Current network:", network.name);
+  console.log("🔒 Chain ID:", network.chainId);
 
-  // Obtener las cuentas disponibles
+  // Get available accounts
   const accounts = await ethers.getSigners();
 
-  console.log("\n👤 Cuentas disponibles:");
+  console.log("\n👤 Available accounts:");
   for (let i = 0; i < Math.min(accounts.length, 5); i++) {
     const account = accounts[i];
     const balance = await provider.getBalance(account.address);
-    console.log(`  ${i}: ${account.address} - ${ethers.formatEther(balance)} ETH`);
+    console.log(`  ${i}: ${account.address} - ${ethers.formatEther(balance)} HYPE`);
   }
 
-  // Mostrar la cuenta que se usará para el despliegue (índice 0)
+  // Show the account that will be used for deployment (index 0)
   const deployer = accounts[0];
   const deployerBalance = await provider.getBalance(deployer.address);
 
-  console.log("\n🚀 Cuenta que se usará para el despliegue:");
-  console.log(`   Dirección: ${deployer.address}`);
-  console.log(`   Balance: ${ethers.formatEther(deployerBalance)} ETH`);
+  console.log("\n🚀 Account to be used for deployment:");
+  console.log(`   Address: ${deployer.address}`);
+  console.log(`   Balance: ${ethers.formatEther(deployerBalance)} HYPE`);
 
   if (deployerBalance === 0n) {
-    console.log("\n⚠️  ADVERTENCIA: La cuenta no tiene ETH!");
-    console.log("💡 Necesitas fondos para desplegar el contrato.");
+    console.log("\n⚠️  WARNING: The account has no HYPE!");
+    console.log("💡 You need funds to deploy the contract.");
   } else {
-    console.log("\n✅ La cuenta tiene fondos para el despliegue.");
+    console.log("\n✅ The account has funds for deployment.");
   }
 
-  // Verificar si MNEMONIC está configurado
+  // Check if MNEMONIC is set
   const mnemonic = process.env.MNEMONIC;
   if (mnemonic) {
-    console.log("\n✅ MNEMONIC configurado en variables de entorno.");
-    console.log("📝 Primeras palabras:", mnemonic.split(" ").slice(0, 3).join(" ") + "...");
+    console.log("\n✅ MNEMONIC set in environment variables.");
+    console.log("📝 First words:", mnemonic.split(" ").slice(0, 3).join(" ") + "...");
   } else {
-    console.log("\n❌ MNEMONIC no configurado en variables de entorno.");
-    console.log("💡 Usando mnemonic por defecto de hardhat.");
+    console.log("\n❌ MNEMONIC not set in environment variables.");
+    console.log("💡 Using Hardhat's default mnemonic.");
   }
 }
 

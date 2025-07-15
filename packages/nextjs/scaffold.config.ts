@@ -13,15 +13,15 @@ export type ScaffoldConfig = BaseConfig;
 
 export const DEFAULT_ALCHEMY_API_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
-// Configuración personalizada para hyperEVM testnet
+// Custom configuration for hyperEVM testnet
 const hyperEVMTestnet = {
   id: 998,
   name: "HyperEVM Testnet",
   network: "hyperevm-testnet",
   nativeCurrency: {
     decimals: 18,
-    name: "Ether",
-    symbol: "ETH",
+    name: "Hyperliquid",
+    symbol: "HYPE",
   },
   rpcUrls: {
     default: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
@@ -53,7 +53,7 @@ const scaffoldConfig = {
   // It's recommended to store it in an env variable:
   // .env.local for local testing, and in the Vercel/system env config for live apps.
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "3a8170812b534d0ff9d794f19a901d64",
-  onlyLocalBurnerWallet: false, // Permitir burner wallet en testnet
+  onlyLocalBurnerWallet: false, // Allow burner wallet on testnet
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;

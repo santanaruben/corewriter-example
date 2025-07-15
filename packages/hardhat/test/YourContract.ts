@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { YourContract } from "../typechain-types";
 
 describe("YourContract - CoreWriter Real", function () {
-  // Definimos un fixture para reutilizar la misma configuración en cada prueba.
+  // Define a fixture to reuse the same setup in each test.
   let yourContract: YourContract;
   let owner: any;
   let user1: any;
@@ -16,22 +16,22 @@ describe("YourContract - CoreWriter Real", function () {
     await yourContract.waitForDeployment();
   });
 
-  describe("Despliegue", function () {
-    it("Debería tener el propietario correcto al desplegar", async function () {
+  describe("Deployment", function () {
+    it("Should have the correct owner on deployment", async function () {
       expect(await yourContract.owner()).to.equal(owner.address);
     });
 
-    it("Debería tener contador de acciones en 0 al inicio", async function () {
+    it("Should have action counter at 0 initially", async function () {
       expect(await yourContract.actionCounter()).to.equal(0);
     });
 
-    it("Debería tener la dirección correcta de CoreWriter", async function () {
+    it("Should have the correct CoreWriter address", async function () {
       expect(await yourContract.CORE_WRITER()).to.equal("0x3333333333333333333333333333333333333333");
     });
   });
 
-  describe("Funciones de CoreWriter - Limit Orders", function () {
-    it("Debería permitir enviar una orden límite", async function () {
+  describe("CoreWriter Functions - Limit Orders", function () {
+    it("Should allow sending a limit order", async function () {
       const asset = 1;
       const isBuy = true;
       const limitPx = 100000000000n; // 1000 * 10^8
@@ -50,7 +50,7 @@ describe("YourContract - CoreWriter Real", function () {
       expect(action.executed).to.equal(true);
     });
 
-    it("Debería permitir usar la función de prueba de orden límite", async function () {
+    it("Should allow using the test limit order function", async function () {
       await yourContract.connect(user2).testLimitOrder();
 
       expect(await yourContract.actionCounter()).to.equal(2);
@@ -61,8 +61,8 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Vault Transfer", function () {
-    it("Debería permitir enviar una transferencia de vault", async function () {
+  describe("CoreWriter Functions - Vault Transfer", function () {
+    it("Should allow sending a vault transfer", async function () {
       const vault = user1.address;
       const isDeposit = true;
       const usd = 1000000000n; // 1000 * 10^6
@@ -76,7 +76,7 @@ describe("YourContract - CoreWriter Real", function () {
       expect(action.executed).to.equal(true);
     });
 
-    it("Debería permitir usar la función de prueba de vault transfer", async function () {
+    it("Should allow using the test vault transfer function", async function () {
       await yourContract.connect(user2).testVaultTransfer();
 
       expect(await yourContract.actionCounter()).to.equal(4);
@@ -87,10 +87,10 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Token Delegate", function () {
-    it("Debería permitir delegar tokens", async function () {
+  describe("CoreWriter Functions - Token Delegate", function () {
+    it("Should allow delegating tokens", async function () {
       const validator = "0x1234567890123456789012345678901234567890";
-      const wei = 1000000000000000000n; // 1 ETH
+      const wei = 1000000000000000000n; // 1 HYPE
       const isUndelegate = false;
 
       await yourContract.connect(user1).sendTokenDelegate(validator, wei, isUndelegate);
@@ -102,7 +102,7 @@ describe("YourContract - CoreWriter Real", function () {
       expect(action.executed).to.equal(true);
     });
 
-    it("Debería permitir usar la función de prueba de token delegate", async function () {
+    it("Should allow using the test token delegate function", async function () {
       await yourContract.connect(user2).testTokenDelegate();
 
       expect(await yourContract.actionCounter()).to.equal(6);
@@ -113,9 +113,9 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Staking", function () {
-    it("Debería permitir depositar en staking", async function () {
-      const wei = 1000000000000000000n; // 1 ETH
+  describe("CoreWriter Functions - Staking", function () {
+    it("Should allow staking deposit", async function () {
+      const wei = 1000000000000000000n; // 1 HYPE
 
       await yourContract.connect(user1).sendStakingDeposit(wei);
 
@@ -126,8 +126,8 @@ describe("YourContract - CoreWriter Real", function () {
       expect(action.executed).to.equal(true);
     });
 
-    it("Debería permitir retirar de staking", async function () {
-      const wei = 500000000000000000n; // 0.5 ETH
+    it("Should allow staking withdrawal", async function () {
+      const wei = 500000000000000000n; // 0.5 HYPE
 
       await yourContract.connect(user2).sendStakingWithdraw(wei);
 
@@ -139,11 +139,11 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Spot Send", function () {
-    it("Debería permitir enviar tokens spot", async function () {
+  describe("CoreWriter Functions - Spot Send", function () {
+    it("Should allow sending spot tokens", async function () {
       const destination = user2.address;
       const token = 1n; // Token ID
-      const wei = 1000000000000000000n; // 1 ETH
+      const wei = 1000000000000000000n; // 1 HYPE
 
       await yourContract.connect(user1).sendSpotSend(destination, token, wei);
 
@@ -155,8 +155,8 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - USD Class Transfer", function () {
-    it("Debería permitir transferir USD class", async function () {
+  describe("CoreWriter Functions - USD Class Transfer", function () {
+    it("Should allow transferring USD class", async function () {
       const ntl = 1000000000n; // 1000 * 10^6
       const toPerp = true;
 
@@ -170,8 +170,8 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Finalize EVM Contract", function () {
-    it("Debería permitir finalizar un contrato EVM", async function () {
+  describe("CoreWriter Functions - Finalize EVM Contract", function () {
+    it("Should allow finalizing an EVM contract", async function () {
       const token = 1n; // Token ID
       const variant = 1; // Create
       const createNonce = 0n;
@@ -186,8 +186,8 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de CoreWriter - Add API Wallet", function () {
-    it("Debería permitir agregar una wallet API", async function () {
+  describe("CoreWriter Functions - Add API Wallet", function () {
+    it("Should allow adding an API wallet", async function () {
       const apiWallet = "0xabcdef1234567890abcdef1234567890abcdef12";
       const apiWalletName = "Test API Wallet";
 
@@ -201,13 +201,13 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Funciones de consulta", function () {
-    it("Debería obtener las acciones de un usuario", async function () {
+  describe("Query Functions", function () {
+    it("Should get the actions of a user", async function () {
       const userActions = await yourContract.getUserActions(user1.address);
       expect(userActions.length).to.be.greaterThan(0);
     });
 
-    it("Debería obtener información de una acción específica", async function () {
+    it("Should get information of a specific action", async function () {
       const action = await yourContract.getAction(0);
       expect(action.id).to.equal(0);
       expect(action.creator).to.equal(user1.address);
@@ -215,27 +215,27 @@ describe("YourContract - CoreWriter Real", function () {
     });
   });
 
-  describe("Restricciones de acceso", function () {
-    it("Solo el propietario debería poder retirar ETH", async function () {
-      // Enviar algo de ETH al contrato
+  describe("Access Restrictions", function () {
+    it("Only the owner should be able to withdraw HYPE", async function () {
+      // Send some HYPE to the contract
       await owner.sendTransaction({
         to: await yourContract.getAddress(),
         value: ethers.parseEther("0.1"),
       });
 
-      // El propietario puede retirar
+      // The owner can withdraw
       await expect(yourContract.connect(owner).withdraw()).to.not.be.reverted;
 
-      // Otros usuarios no pueden retirar
+      // Other users cannot withdraw
       await expect(yourContract.connect(user1).withdraw()).to.be.revertedWith(
-        "Solo el propietario puede ejecutar esta funcion",
+        "Only the owner can execute this function",
       );
     });
   });
 
-  describe("Encoding de datos", function () {
-    it("Debería crear el encoding correcto para las acciones", async function () {
-      // Esta prueba verifica que el encoding interno funciona correctamente
+  describe("Data Encoding", function () {
+    it("Should create the correct encoding for actions", async function () {
+      // This test checks that the internal encoding works correctly
       const asset = 1;
       const isBuy = true;
       const limitPx = 100000000000n;
@@ -247,7 +247,7 @@ describe("YourContract - CoreWriter Real", function () {
       await yourContract.connect(user1).sendLimitOrder(asset, isBuy, limitPx, sz, reduceOnly, tif, cloid);
 
       const action = await yourContract.getAction((await yourContract.actionCounter()) - 1n);
-      expect(action.data.length).to.be.greaterThan(4); // Debe tener al menos el header de 4 bytes
+      expect(action.data.length).to.be.greaterThan(4); // Should have at least the 4-byte header
     });
   });
 });

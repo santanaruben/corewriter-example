@@ -5,21 +5,21 @@ pragma solidity >=0.8.0 <0.9.0;
 import "hardhat/console.sol";
 
 /**
- * Contrato CoreWriter para hyperEVM testnet
- * Implementa las funcionalidades reales de CoreWriter según la documentación oficial
- * @author Tu Nombre
+ * CoreWriter contract for hyperEVM testnet
+ * Implements the real functionalities of CoreWriter according to the official documentation
+ * @author Your Name
  */
 contract YourContract {
-    // Estado del contrato
+    // Contract state
     address public immutable owner;
     uint256 public actionCounter = 0;
     mapping(uint256 => Action) public actions;
     mapping(address => uint256[]) public userActions;
 
-    // Dirección del contrato CoreWriter del sistema
+    // CoreWriter contract address of the system
     address public constant CORE_WRITER = 0x3333333333333333333333333333333333333333;
 
-    // Estructura para representar una acción
+    // Structure to represent an action
     struct Action {
         uint256 id;
         address creator;
@@ -30,7 +30,7 @@ contract YourContract {
         string result;
     }
 
-    // Acciones disponibles según la documentación
+    // Available actions according to the documentation
     enum ActionType {
         LIMIT_ORDER, // 1
         VAULT_TRANSFER, // 2
@@ -43,32 +43,32 @@ contract YourContract {
         ADD_API_WALLET // 9
     }
 
-    // Eventos
+    // Events
     event ActionCreated(uint256 indexed actionId, address indexed creator, string actionType, uint256 timestamp);
     event ActionExecuted(uint256 indexed actionId, string result, uint256 timestamp);
     event CoreWriterCall(address indexed caller, string operation, bool success);
 
-    // Modificador para el propietario
+    // Modifier for the owner
     modifier onlyOwner() {
-        require(msg.sender == owner, "Solo el propietario puede ejecutar esta funcion");
+        require(msg.sender == owner, "Only the owner can execute this function");
         _;
     }
 
     // Constructor
     constructor(address _owner) {
         owner = _owner;
-        console.log("Contrato CoreWriter desplegado por:", _owner);
+        console.log("CoreWriter contract deployed by:", _owner);
     }
 
     /**
-     * Envía una orden límite a HyperCore
-     * @param asset ID del activo (uint32)
-     * @param isBuy true para compra, false para venta
-     * @param limitPx precio límite (uint64, multiplicado por 10^8)
-     * @param sz tamaño de la orden (uint64, multiplicado por 10^8)
-     * @param reduceOnly true para reducir solo
-     * @param tif tipo de orden: 1=Alo, 2=Gtc, 3=Ioc
-     * @param cloid ID de la orden (uint128, 0 para sin cloid)
+     * Sends a limit order to HyperCore
+     * @param asset Asset ID (uint32)
+     * @param isBuy true for buy, false for sell
+     * @param limitPx limit price (uint64, multiplied by 10^8)
+     * @param sz order size (uint64, multiplied by 10^8)
+     * @param reduceOnly true for reduce only
+     * @param tif order type: 1=Alo, 2=Gtc, 3=Ioc
+     * @param cloid order ID (uint128, 0 for no cloid)
      */
     function sendLimitOrder(
         uint32 asset,
@@ -82,7 +82,7 @@ contract YourContract {
         bytes memory encodedAction = abi.encode(asset, isBuy, limitPx, sz, reduceOnly, tif, cloid);
         _sendCoreWriterAction(ActionType.LIMIT_ORDER, encodedAction);
 
-        console.log("Limit Order enviada");
+        console.log("Limit Order sent");
         console.log(asset);
         console.log(isBuy);
         console.log(limitPx);
@@ -90,10 +90,10 @@ contract YourContract {
     }
 
     /**
-     * Transfiere fondos desde/hacia un vault
-     * @param vault dirección del vault
-     * @param isDeposit true para depósito, false para retiro
-     * @param usd cantidad en USD (uint64)
+     * Transfers funds to/from a vault
+     * @param vault vault address
+     * @param isDeposit true for deposit, false for withdrawal
+     * @param usd amount in USD (uint64)
      */
     function sendVaultTransfer(address vault, bool isDeposit, uint64 usd) public {
         bytes memory encodedAction = abi.encode(vault, isDeposit, usd);
@@ -106,10 +106,10 @@ contract YourContract {
     }
 
     /**
-     * Delega tokens a un validador
-     * @param validator dirección del validador
-     * @param amount cantidad en wei (uint64)
-     * @param isUndelegate true para des-delegar
+     * Delegates tokens to a validator
+     * @param validator validator address
+     * @param amount amount in wei (uint64)
+     * @param isUndelegate true to undelegate
      */
     function sendTokenDelegate(address validator, uint64 amount, bool isUndelegate) public {
         bytes memory encodedAction = abi.encode(validator, amount, isUndelegate);
@@ -122,8 +122,8 @@ contract YourContract {
     }
 
     /**
-     * Deposita en staking
-     * @param amount cantidad en wei (uint64)
+     * Deposits into staking
+     * @param amount amount in wei (uint64)
      */
     function sendStakingDeposit(uint64 amount) public {
         bytes memory encodedAction = abi.encode(amount);
@@ -134,8 +134,8 @@ contract YourContract {
     }
 
     /**
-     * Retira de staking
-     * @param amount cantidad en wei (uint64)
+     * Withdraws from staking
+     * @param amount amount in wei (uint64)
      */
     function sendStakingWithdraw(uint64 amount) public {
         bytes memory encodedAction = abi.encode(amount);
@@ -146,10 +146,10 @@ contract YourContract {
     }
 
     /**
-     * Envía tokens spot
-     * @param destination dirección de destino
-     * @param token ID del token (uint64)
-     * @param amount cantidad en wei (uint64)
+     * Sends spot tokens
+     * @param destination destination address
+     * @param token token ID (uint64)
+     * @param amount amount in wei (uint64)
      */
     function sendSpotSend(address destination, uint64 token, uint64 amount) public {
         bytes memory encodedAction = abi.encode(destination, token, amount);
@@ -162,9 +162,9 @@ contract YourContract {
     }
 
     /**
-     * Transfiere USD class
-     * @param ntl cantidad notional (uint64)
-     * @param toPerp true para transferir a perp
+     * Transfers USD class
+     * @param ntl notional amount (uint64)
+     * @param toPerp true to transfer to perp
      */
     function sendUsdClassTransfer(uint64 ntl, bool toPerp) public {
         bytes memory encodedAction = abi.encode(ntl, toPerp);
@@ -176,10 +176,10 @@ contract YourContract {
     }
 
     /**
-     * Finaliza un contrato EVM
-     * @param token ID del token (uint64)
-     * @param variant tipo de finalización: 1=Create, 2=FirstStorageSlot, 3=CustomStorageSlot
-     * @param createNonce nonce de creación (uint64)
+     * Finalizes an EVM contract
+     * @param token token ID (uint64)
+     * @param variant finalization type: 1=Create, 2=FirstStorageSlot, 3=CustomStorageSlot
+     * @param createNonce creation nonce (uint64)
      */
     function sendFinalizeEvmContract(uint64 token, uint8 variant, uint64 createNonce) public {
         bytes memory encodedAction = abi.encode(token, variant, createNonce);
@@ -192,9 +192,9 @@ contract YourContract {
     }
 
     /**
-     * Agrega una wallet API
-     * @param apiWallet dirección de la wallet API
-     * @param apiWalletName nombre de la wallet API
+     * Adds an API wallet
+     * @param apiWallet API wallet address
+     * @param apiWalletName API wallet name
      */
     function sendAddApiWallet(address apiWallet, string memory apiWalletName) public {
         bytes memory encodedAction = abi.encode(apiWallet, apiWalletName);
@@ -202,14 +202,14 @@ contract YourContract {
 
         console.log("Add API Wallet");
         console.log(apiWallet);
-        // No se puede loggear string dinámico apiWalletName
+        // Cannot log dynamic string apiWalletName
     }
 
     /**
-     * Función de prueba para enviar una orden límite de ejemplo
+     * Test function to send a sample limit order
      */
     function testLimitOrder() public {
-        // Ejemplo: Orden de compra de 100 unidades del activo 1 a precio 1000
+        // Example: Buy order of 100 units of asset 1 at price 1000
         sendLimitOrder(
             1, // asset ID
             true, // isBuy
@@ -217,35 +217,35 @@ contract YourContract {
             10000000000, // sz (100 * 10^8)
             false, // reduceOnly
             2, // tif (Gtc)
-            0 // cloid (sin cloid)
+            0 // cloid (no cloid)
         );
     }
 
     /**
-     * Función de prueba para enviar una transferencia de vault
+     * Test function to send a vault transfer
      */
     function testVaultTransfer() public {
-        // Ejemplo: Depositar 1000 USD en el vault del usuario
+        // Example: Deposit 1000 USD in the user's vault
         sendVaultTransfer(
-            msg.sender, // vault (propio address)
+            msg.sender, // vault (own address)
             true, // isDeposit
             1000000000 // usd (1000 * 10^6)
         );
     }
 
     /**
-     * Función de prueba para delegar tokens
+     * Test function to delegate tokens
      */
     function testTokenDelegate() public {
-        // Ejemplo: Delegar 1000 wei al validador 0x123...
+        // Example: Delegate 1000 wei to validator 0x123...
         sendTokenDelegate(
             0x1234567890123456789012345678901234567890, // validator
-            1000000000000000000, // amount (1 ETH)
+            1000000000000000000, // amount (1 HYPE)
             false // isUndelegate
         );
     }
 
-    // Funciones internas
+    // Internal functions
 
     function _sendCoreWriterAction(ActionType actionType, bytes memory encodedAction) internal {
         // Construir el encoding según la documentación
@@ -269,10 +269,10 @@ contract YourContract {
 
         if (success) {
             emit CoreWriterCall(msg.sender, actionTypeString, true);
-            console.log("CoreWriter action enviada exitosamente");
+            console.log("CoreWriter action sent successfully");
         } else {
             emit CoreWriterCall(msg.sender, actionTypeString, false);
-            console.log("Error al enviar CoreWriter action");
+            console.log("Error sending CoreWriter action");
         }
     }
 
@@ -286,14 +286,14 @@ contract YourContract {
             data: _data,
             timestamp: block.timestamp,
             executed: true, // Las acciones de CoreWriter se ejecutan inmediatamente
-            result: "CoreWriter action enviada"
+            result: "CoreWriter action sent"
         });
 
         userActions[msg.sender].push(actionId);
         actionCounter++;
 
         emit ActionCreated(actionId, msg.sender, _actionType, block.timestamp);
-        console.log("Nueva accion CoreWriter creada");
+        console.log("New CoreWriter action created");
         console.log(actionId);
     }
 
@@ -317,20 +317,20 @@ contract YourContract {
     }
 
     function getAction(uint256 _actionId) public view returns (Action memory) {
-        require(_actionId < actionCounter, "Accion no existe");
+        require(_actionId < actionCounter, "Action does not exist");
         return actions[_actionId];
     }
 
     /**
-     * Función para recibir ETH
+     * Function to receive HYPE
      */
     receive() external payable {}
 
     /**
-     * Función para retirar ETH (solo propietario)
+     * Function to withdraw HYPE (only owner)
      */
     function withdraw() public onlyOwner {
         (bool success, ) = owner.call{ value: address(this).balance }("");
-        require(success, "Fallo al enviar ETH");
+        require(success, "Failed to send HYPE");
     }
 }

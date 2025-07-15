@@ -3,46 +3,46 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 
 /**
- * Despliega el contrato CoreWriter "YourContract" usando la cuenta del deployer
- * y argumentos del constructor establecidos a la dirección del deployer
+ * Deploys the CoreWriter contract "YourContract" using the deployer's account
+ * and constructor arguments set to the deployer's address
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
 const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
-    En localhost, la cuenta del deployer es la que viene con Hardhat, que ya está financiada.
+    On localhost, the deployer account is the one provided by Hardhat, which is already funded.
 
-    Al desplegar en redes en vivo (ej. `yarn deploy --network hyperevmTestnet`), la cuenta del deployer
-    debe tener saldo suficiente para pagar las tarifas de gas por la creación del contrato.
+    When deploying to live networks (e.g. `yarn deploy --network hyperevmTestnet`), the deployer account
+    must have enough balance to pay the gas fees for contract creation.
 
-    Puedes generar una cuenta aleatoria con `yarn generate` o `yarn account:import` para importar tu
-    PK existente que llenará DEPLOYER_PRIVATE_KEY_ENCRYPTED en el archivo .env (luego usado en hardhat.config.ts)
-    Puedes ejecutar el comando `yarn account` para verificar tu saldo en cada red.
+    You can generate a random account with `yarn generate` or `yarn account:import` to import your
+    existing PK that will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (then used in hardhat.config.ts)
+    You can run the command `yarn account` to check your balance on each network.
   */
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  console.log("🚀 Desplegando contrato CoreWriter...");
+  console.log("🚀 Deploying CoreWriter contract...");
   console.log("📝 Deployer:", deployer);
 
   await deploy("YourContract", {
     from: deployer,
-    // Argumentos del constructor del contrato
+    // Contract constructor arguments
     args: [deployer],
     log: true,
-    // autoMine: se puede pasar a la función deploy para hacer el proceso de despliegue más rápido en redes locales
-    // al minar automáticamente la transacción de despliegue del contrato. No tiene efecto en redes en vivo.
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks
+    // by automatically mining the contract deployment transaction. Has no effect on live networks.
     autoMine: true,
   });
 
-  // Obtener el contrato desplegado para interactuar con él después del despliegue.
+  // Get the deployed contract to interact with it after deployment.
   const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
-  console.log("✅ Contrato CoreWriter desplegado exitosamente!");
-  console.log("👤 Propietario del contrato:", await yourContract.owner());
-  console.log("📊 Contador de acciones:", await yourContract.actionCounter());
+  console.log("✅ CoreWriter contract deployed successfully!");
+  console.log("👤 Contract owner:", await yourContract.owner());
+  console.log("📊 Action counter:", await yourContract.actionCounter());
 
-  // Crear una acción de prueba inicial
-  console.log("🧪 Creando acción de prueba inicial...");
+  // Create an initial test action
+  console.log("🤪 Creating initial test action...");
   const tx = await yourContract.sendLimitOrder(
     1, // asset ID
     true, // isBuy
@@ -50,14 +50,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     10000000000n, // sz (100 * 10^8)
     false, // reduceOnly
     2, // tif (Gtc)
-    0n, // cloid (sin cloid)
+    0n, // cloid (no cloid)
   );
   await tx.wait();
-  console.log("✅ Acción de prueba creada!");
+  console.log("✅ Test action created!");
 };
 
 export default deployYourContract;
 
-// Tags son útiles si tienes múltiples archivos de despliegue y solo quieres ejecutar uno de ellos.
-// ej. yarn deploy --tags YourContract
+// Tags are useful if you have multiple deploy files and only want to run one of them.
+// e.g. yarn deploy --tags YourContract
 deployYourContract.tags = ["YourContract"];

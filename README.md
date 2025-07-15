@@ -1,70 +1,72 @@
 # CoreWriter dApp - Scaffold-ETH 2 + hyperEVM
 
-Este proyecto es una integración real de CoreWriter sobre hyperEVM testnet, usando Scaffold-ETH 2 (NextJS, Hardhat, Wagmi, Typescript).
+This project is a real integration of CoreWriter on hyperEVM testnet, using Scaffold-ETH 2 (NextJS, Hardhat, Wagmi, Typescript).
 
-## 🚀 Características principales
-- **Contrato CoreWriter real**: Todas las funciones principales de CoreWriter implementadas y expuestas.
-- **Despliegue y pruebas en hyperEVM testnet**.
-- **Frontend NextJS** con UI dedicada para interactuar con el contrato.
-- **Soporte para acciones rápidas, historial y ayuda contextual**.
-
----
-
-## 📦 Estructura del proyecto
-- `packages/hardhat/` - Contratos, scripts de despliegue y pruebas.
-- `packages/nextjs/` - Frontend NextJS, hooks y componentes para interactuar con el contrato.
-- Página principal: [`/`](./packages/nextjs/app/page.tsx) - Interfaz completa de CoreWriter
+## 🚀 Main Features
+- **Real CoreWriter contract**: All main CoreWriter functions implemented and exposed.
+- **Deployment and testing on hyperEVM testnet**.
+- **NextJS frontend** with a dedicated UI to interact with the contract.
+- **Support for quick actions, history, and contextual help**.
 
 ---
 
-## 🛠️ Instalación y configuración
+## 📦 Project Structure
+- `packages/hardhat/` - Contracts, deployment scripts, and tests.
+- `packages/nextjs/` - NextJS frontend, hooks, and components to interact with the contract.
+- Main page: [`/`](./packages/nextjs/app/page.tsx) - Full CoreWriter interface
 
-1. **Instala dependencias**
+---
+
+## 🛠️ Installation and Setup
+
+1. **Install dependencies**
    ```bash
    yarn install
    ```
-2. **Configura tu cuenta y mnemonic**
-   - Crea el archivo `packages/hardhat/.env`:
+2. **Set up your account and mnemonic**
+   - Create the file `packages/hardhat/.env`:
      ```env
-     MNEMONIC="tus 12 palabras aquí"
+     MNEMONIC="your 12 words here"
      ```
-   - Asegúrate de tener fondos en la testnet de hyperEVM.
-3. **Configura tu cuenta para usar HyperEVM Big Blocks**
-   - Entra en https://hyperevm-block-toggle.vercel.app/
-   - Asegúrate de tener fondos en la testnet de hyperEVM.
-   - Coloca el toggle de arriba en Testnet
-   - Haz click sobre el botón BIG para poder usar los HyperEVM Big Blocks
-4. **Despliega el contrato**
+3. **Getting funds from the Faucet**
+   - Get some hyperEVM testnet USDC on the faucet https://app.hyperliquid-testnet.xyz/drip (you need 10 usdc on arbitrum mainnet).
+   - You can route the assets between hyperEVM and hyperCORE in https://app.hyperliquid-testnet.xyz/portfolio
+   - In order to get HYPE to deploy and make txs you need to trade that USDC in https://app.hyperliquid-testnet.xyz/trade and send HYPE to hyperEVM
+4. **Configure your account to use HyperEVM Big Blocks**
+   - Go to https://hyperevm-block-toggle.vercel.app/
+   - Make sure you have funds on the hyperEVM testnet.
+   - Set the top toggle to Testnet
+   - Click the "BIG" button to enable HyperEVM Big Blocks
+   - Accept the tx
+5. **Deploy the contract**
    ```bash
    yarn deploy:hyperevmTestnet
    ```
-5. **Inicia el frontend**
+6. **Start the frontend**
    ```bash
    yarn start
-   # o
-   yarn dev
    ```
-6. **Abre la interfaz principal**
-   - Ve a [http://localhost:3000](http://localhost:3000)
+7. **Open the main interface**
+   - Go to [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## ✨ ¿Qué puedes hacer?
-- Usar **acciones rápidas** para probar todas las funciones principales de CoreWriter:
-  - Enviar órdenes límite
-  - Transferir vault
-  - Delegar tokens
+## ✨ What can you do?
+- Use **quick actions** to test all main CoreWriter functions:
+  - Send limit orders
+  - Transfer vault
+  - Delegate tokens
   - Staking
-  - Enviar tokens spot
-  - Transferir USD class
-  - Finalizar contratos EVM
-  - Agregar wallets API
-- Ver el **historial de acciones** creadas y ejecutadas por tu cuenta.
-- Consultar **ayuda contextual** y ejemplos de uso.
+  - Send spot tokens
+  - Transfer USD class
+  - Finalize EVM contracts
+  - Add API wallets
+- View the **history of actions** created and executed by your account.
+- Consult **contextual help** and usage examples.
 
 ---
 
-## 🧪 Pruebas
+## 🤪 Testing
 
 ```bash
 yarn test
@@ -72,7 +74,7 @@ yarn test
 
 ---
 
-## 🌐 Redes soportadas
+## 🌐 Supported Networks
 - **hyperEVM Testnet**
   - Chain ID: 998
   - RPC: https://rpc.hyperliquid-testnet.xyz/evm
@@ -80,14 +82,14 @@ yarn test
 
 ---
 
-## 📚 Recursos útiles
-- [Documentación oficial de CoreWriter](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
+## 📚 Useful Resources
+- [Official CoreWriter Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
 - [Scaffold-ETH 2](https://github.com/scaffold-eth/se-2)
 - [hyperEVM](https://docs.hyperliquid.xyz/)
 
 ---
 
-## 📝 Notas
-- La página principal está completamente adaptada para CoreWriter con formularios amigables y historial de acciones.
-- Puedes seguir usando `/debug` para interactuar con cualquier contrato desplegado de forma avanzada.
-- Si tienes dudas, revisa el archivo `COREWRITER_README.md` para detalles técnicos y ejemplos avanzados.
+## 📝 Notes
+- The main page is fully adapted for CoreWriter with user-friendly forms and action history.
+- You can still use `/debug` to interact with any deployed contract in an advanced way.
+- If you have questions, check the `COREWRITER_README.md` file for technical details and advanced examples.

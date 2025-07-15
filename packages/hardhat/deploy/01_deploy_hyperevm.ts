@@ -3,8 +3,8 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 
 /**
- * Despliega el contrato CoreWriter en hyperEVM testnet
- * Este script está optimizado para la red hyperEVM testnet
+ * Deploys the CoreWriter contract on hyperEVM testnet
+ * This script is optimized for the hyperEVM testnet
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
@@ -13,14 +13,14 @@ const deployHyperEVM: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deploy } = hre.deployments;
   const network = hre.network.name;
 
-  console.log("🚀 Desplegando contrato CoreWriter en hyperEVM testnet...");
+  console.log("🚀 Deploying CoreWriter contract on hyperEVM testnet...");
   console.log("📝 Deployer:", deployer);
-  console.log("🌐 Red:", network);
+  console.log("🌐 Network:", network);
 
-  // Verificar que estamos en la red correcta
+  // Verify that we are on the correct network
   if (network !== "hyperevmTestnet") {
-    console.log("⚠️  Este script está diseñado para hyperEVM testnet");
-    console.log("💡 Usa: yarn deploy --network hyperevmTestnet");
+    console.log("⚠️  This script is designed for hyperEVM testnet");
+    console.log("💡 Use: yarn deploy --network hyperevmTestnet");
     return;
   }
 
@@ -29,23 +29,23 @@ const deployHyperEVM: DeployFunction = async function (hre: HardhatRuntimeEnviro
       from: deployer,
       args: [deployer],
       log: true,
-      autoMine: false, // En redes en vivo, no autoMine
-      waitConfirmations: 1, // Esperar 1 confirmación
+      autoMine: false, // On live networks, do not autoMine
+      waitConfirmations: 1, // Wait for 1 confirmation
     });
 
-    // Obtener el contrato desplegado
+    // Get the deployed contract
     const yourContract = await hre.ethers.getContract<Contract>("YourContract", deployer);
 
-    console.log("✅ Contrato CoreWriter desplegado exitosamente en hyperEVM testnet!");
-    console.log("📄 Dirección del contrato:", await yourContract.getAddress());
-    console.log("👤 Propietario del contrato:", await yourContract.owner());
-    console.log("📊 Contador de acciones:", await yourContract.actionCounter());
-    console.log("🔗 Dirección CoreWriter:", await yourContract.CORE_WRITER());
+    console.log("✅ CoreWriter contract deployed successfully on hyperEVM testnet!");
+    console.log("📄 Contract address:", await yourContract.getAddress());
+    console.log("👤 Contract owner:", await yourContract.owner());
+    console.log("📊 Action counter:", await yourContract.actionCounter());
+    console.log("🔗 CoreWriter address:", await yourContract.CORE_WRITER());
 
-    // Crear algunas acciones de prueba iniciales
-    console.log("🧪 Creando acciones de prueba iniciales...");
+    // Create some initial test actions
+    console.log("🤪 Creating initial test actions...");
 
-    // Orden límite de prueba
+    // Test limit order
     const limitOrderTx = await yourContract.sendLimitOrder(
       1, // asset ID
       true, // isBuy
@@ -53,55 +53,55 @@ const deployHyperEVM: DeployFunction = async function (hre: HardhatRuntimeEnviro
       10000000000n, // sz (100 * 10^8)
       false, // reduceOnly
       2, // tif (Gtc)
-      0n, // cloid (sin cloid)
+      0n, // cloid (no cloid)
     );
     await limitOrderTx.wait();
-    console.log("✅ Orden límite de prueba creada!");
+    console.log("✅ Test limit order created!");
 
-    // Transferencia de vault de prueba
+    // Test vault transfer
     const vaultTransferTx = await yourContract.sendVaultTransfer(
       deployer, // vault
       true, // isDeposit
       1000000000n, // usd (1000 * 10^6)
     );
     await vaultTransferTx.wait();
-    console.log("✅ Transferencia de vault de prueba creada!");
+    console.log("✅ Test vault transfer created!");
 
-    // Delegación de tokens de prueba
+    // Test token delegation
     const tokenDelegateTx = await yourContract.sendTokenDelegate(
       "0x1234567890123456789012345678901234567890", // validator
-      1000000000000000000n, // amount (1 ETH)
+      1000000000000000000n, // amount (1 HYPE)
       false, // isUndelegate
     );
     await tokenDelegateTx.wait();
-    console.log("✅ Delegación de tokens de prueba creada!");
+    console.log("✅ Test token delegation created!");
 
-    // Depósito en staking de prueba
+    // Test staking deposit
     const stakingDepositTx = await yourContract.sendStakingDeposit(
-      1000000000000000000n, // amount (1 ETH)
+      1000000000000000000n, // amount (1 HYPE)
     );
     await stakingDepositTx.wait();
-    console.log("✅ Depósito en staking de prueba creado!");
+    console.log("✅ Test staking deposit created!");
 
-    // Envío de tokens spot de prueba
+    // Test spot token send
     const spotSendTx = await yourContract.sendSpotSend(
       deployer, // destination
       1n, // token ID
-      1000000000000000000n, // amount (1 ETH)
+      1000000000000000000n, // amount (1 HYPE)
     );
     await spotSendTx.wait();
-    console.log("✅ Envío de tokens spot de prueba creado!");
+    console.log("✅ Test spot token send created!");
 
-    console.log("🎉 ¡Despliegue completo! El contrato está listo para probar CoreWriter en hyperEVM testnet.");
-    console.log("🔗 Puedes verificar el contrato en el explorador de hyperEVM testnet");
-    console.log("📄 Dirección del contrato:", await yourContract.getAddress());
+    console.log("🎉 Deployment complete! The contract is ready to test CoreWriter on hyperEVM testnet.");
+    console.log("🔗 You can verify the contract on the hyperEVM testnet explorer");
+    console.log("📄 Contract address:", await yourContract.getAddress());
   } catch (error) {
-    console.error("❌ Error durante el despliegue:", error);
+    console.error("❌ Error during deployment:", error);
     throw error;
   }
 };
 
 export default deployHyperEVM;
 
-// Tags para ejecutar solo este script
+// Tags to run only this script
 deployHyperEVM.tags = ["HyperEVM"];

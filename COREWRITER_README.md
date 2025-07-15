@@ -1,158 +1,158 @@
-# 🚀 Contrato CoreWriter para hyperEVM Testnet
+# 🚀 CoreWriter Contract for hyperEVM Testnet
 
-Este proyecto contiene un contrato inteligente diseñado para probar y validar la funcionalidad de **CoreWriter** en la testnet de **hyperEVM**, implementando las funcionalidades reales según la [documentación oficial](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract).
+This project contains a smart contract designed to test and validate the functionality of **CoreWriter** on the **hyperEVM** testnet, implementing the real functionalities according to the [official documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract).
 
-## 📋 Características del Contrato
+## 📋 Contract Features
 
-### 🎯 Funcionalidades Principales
+### 🎯 Main Functionalities
 
-1. **Integración Real con CoreWriter**: Llamadas directas al contrato CoreWriter del sistema en `0x3333333333333333333333333333333333333333`
-2. **Órdenes Límite**: Envío de órdenes de trading a HyperCore
-3. **Transferencias de Vault**: Gestión de fondos en vaults
-4. **Delegación de Tokens**: Delegación a validadores
-5. **Staking**: Depósitos y retiros de staking
-6. **Transferencias Spot**: Envío de tokens entre direcciones
-7. **Transferencias USD Class**: Gestión de USD entre perp y spot
-8. **Finalización de Contratos EVM**: Finalización de contratos en HyperCore
-9. **Gestión de API Wallets**: Agregar wallets API
+1. **Real Integration with CoreWriter**: Direct calls to the system CoreWriter contract at `0x3333333333333333333333333333333333333333`
+2. **Limit Orders**: Send trading orders to HyperCore
+3. **Vault Transfers**: Manage funds in vaults
+4. **Token Delegation**: Delegate to validators
+5. **Staking**: Staking deposits and withdrawals
+6. **Spot Transfers**: Send tokens between addresses
+7. **USD Class Transfers**: Manage USD between perp and spot
+8. **EVM Contract Finalization**: Finalize contracts in HyperCore
+9. **API Wallet Management**: Add API wallets
 
-### 🔧 Acciones Disponibles
+### 🔧 Available Actions
 
-#### Funciones de CoreWriter (según documentación oficial)
-- `sendLimitOrder()` - Enviar órdenes límite a HyperCore
-- `sendVaultTransfer()` - Transferir fondos desde/hacia vaults
-- `sendTokenDelegate()` - Delegar tokens a validadores
-- `sendStakingDeposit()` - Depositar en staking
-- `sendStakingWithdraw()` - Retirar de staking
-- `sendSpotSend()` - Enviar tokens spot
-- `sendUsdClassTransfer()` - Transferir USD class
-- `sendFinalizeEvmContract()` - Finalizar contratos EVM
-- `sendAddApiWallet()` - Agregar wallet API
+#### CoreWriter Functions (according to official documentation)
+- `sendLimitOrder()` - Send limit orders to HyperCore
+- `sendVaultTransfer()` - Transfer funds to/from vaults
+- `sendTokenDelegate()` - Delegate tokens to validators
+- `sendStakingDeposit()` - Deposit into staking
+- `sendStakingWithdraw()` - Withdraw from staking
+- `sendSpotSend()` - Send spot tokens
+- `sendUsdClassTransfer()` - Transfer USD class
+- `sendFinalizeEvmContract()` - Finalize EVM contracts
+- `sendAddApiWallet()` - Add API wallet
 
-#### Funciones de Prueba
-- `testLimitOrder()` - Ejemplo de orden límite
-- `testVaultTransfer()` - Ejemplo de transferencia de vault
-- `testTokenDelegate()` - Ejemplo de delegación de tokens
+#### Test Functions
+- `testLimitOrder()` - Example of a limit order
+- `testVaultTransfer()` - Example of a vault transfer
+- `testTokenDelegate()` - Example of token delegation
 
-## 🛠️ Configuración y Despliegue
+## 🛠️ Setup and Deployment
 
-### Prerrequisitos
+### Prerequisites
 - Node.js >= 20.18.3
 - Yarn
-- Cuenta con ETH en hyperEVM testnet
+- Account with HYPE on hyperEVM testnet
 
-### 1. Instalación de Dependencias
+### 1. Install Dependencies
 ```bash
 yarn install
 ```
 
-### 2. Configuración de la Cuenta
+### 2. Account Setup
 ```bash
-# Generar una nueva cuenta
+# Generate a new account
 yarn generate
 
-# O importar una cuenta existente
+# Or import an existing account
 yarn account:import
 ```
 
-### 3. Configurar MNEMONIC
-Edita el archivo `packages/hardhat/.env` y agrega tu mnemonic:
+### 3. Configure MNEMONIC
+Edit the file `packages/hardhat/.env` and add your mnemonic:
 ```env
-MNEMONIC="tu mnemonic de 12 palabras aquí"
+MNEMONIC="your 12-word mnemonic here"
 ```
 
-### 4. Verificar Saldo
+### 4. Check Balance
 ```bash
-# Verificar saldo en hyperEVM testnet
+# Check balance on hyperEVM testnet
 yarn account --network hyperevmTestnet
 ```
 
-### 5. Despliegue Local (Desarrollo)
+### 5. Local Deployment (Development)
 ```bash
-# Iniciar red local
+# Start local network
 yarn chain
 
-# En otra terminal, desplegar contrato
+# In another terminal, deploy contract
 yarn deploy
 ```
 
-### 6. Despliegue en hyperEVM Testnet
+### 6. Deploy to hyperEVM Testnet
 ```bash
-# Desplegar en hyperEVM testnet
+# Deploy to hyperEVM testnet
 yarn deploy --network hyperevmTestnet
 
-# O usar el script específico
+# Or use the specific script
 yarn deploy --tags HyperEVM --network hyperevmTestnet
 ```
 
-## 🧪 Pruebas
+## 🤪 Testing
 
-### Ejecutar Pruebas Locales
+### Run Local Tests
 ```bash
 yarn test
 ```
 
-### Ejecutar Pruebas Específicas
+### Run Specific Tests
 ```bash
 yarn hardhat:test --grep "CoreWriter"
 ```
 
-## 🎮 Interacción con el Contrato
+## 🎮 Interacting with the Contract
 
-### Desde el Frontend
-1. Inicia el frontend: `yarn start`
-2. Ve a `http://localhost:3000/debug`
-3. Conecta tu wallet
-4. Interactúa con las funciones del contrato
+### From the Frontend
+1. Start the frontend: `yarn start`
+2. Go to `http://localhost:3000/debug`
+3. Connect your wallet
+4. Interact with the contract functions
 
-### Desde la Línea de Comandos
+### From the Command Line
 ```bash
-# Ejecutar script de interacción
+# Run interaction script
 yarn hardhat run scripts/interact.ts --network hyperevmTestnet
 ```
 
-### Verificar Cuenta
+### Check Account
 ```bash
-# Verificar qué cuenta se está usando
+# Check which account is being used
 yarn hardhat run scripts/checkAccount.ts --network hyperevmTestnet
 ```
 
-## 📊 Estructura del Contrato
+## 📊 Contract Structure
 
-### Variables de Estado
-- `owner`: Dirección del propietario del contrato
-- `actionCounter`: Contador total de acciones creadas
-- `actions`: Mapping de ID de acción a estructura Action
-- `userActions`: Mapping de usuario a array de IDs de acciones
-- `CORE_WRITER`: Dirección del contrato CoreWriter del sistema
+### State Variables
+- `owner`: Contract owner's address
+- `actionCounter`: Total counter of created actions
+- `actions`: Mapping from action ID to Action struct
+- `userActions`: Mapping from user to array of action IDs
+- `CORE_WRITER`: System CoreWriter contract address
 
-### Estructura Action
+### Action Structure
 ```solidity
 struct Action {
-    uint256 id;           // ID único de la acción
-    address creator;      // Dirección del creador
-    string actionType;    // Tipo de acción
-    bytes data;          // Datos de la acción (encoding de CoreWriter)
-    uint256 timestamp;   // Timestamp de creación
-    bool executed;       // Estado de ejecución (siempre true para CoreWriter)
-    string result;       // Resultado de la ejecución
+    uint256 id;           // Unique action ID
+    address creator;      // Creator's address
+    string actionType;    // Action type
+    bytes data;           // Action data (CoreWriter encoding)
+    uint256 timestamp;    // Creation timestamp
+    bool executed;        // Execution state (always true for CoreWriter)
+    string result;        // Execution result
 }
 ```
 
-### Encoding de CoreWriter
-El contrato implementa el encoding correcto según la documentación:
-- Byte 0: Versión de encoding (0x01)
+### CoreWriter Encoding
+The contract implements the correct encoding according to the documentation:
+- Byte 0: Encoding version (0x01)
 - Bytes 1-2: Action ID (0x0000)
-- Byte 3: Tipo de acción (1-9)
-- Bytes 4+: Datos específicos de la acción
+- Byte 3: Action type (1-9)
+- Bytes 4+: Action-specific data
 
-## 🔍 Eventos Emitidos
+## 🔍 Emitted Events
 
-- `ActionCreated`: Cuando se crea una nueva acción
-- `ActionExecuted`: Cuando se ejecuta una acción
-- `CoreWriterCall`: Cuando se realiza una llamada a CoreWriter
+- `ActionCreated`: When a new action is created
+- `ActionExecuted`: When an action is executed
+- `CoreWriterCall`: When a call to CoreWriter is made
 
-## 🌐 Configuración de Redes
+## 🌐 Network Configuration
 
 ### hyperEVM Testnet
 - **Chain ID**: 998
@@ -160,7 +160,7 @@ El contrato implementa el encoding correcto según la documentación:
 - **Explorer**: `https://testnet.purrsec.com/`
 - **CoreWriter Address**: `0x3333333333333333333333333333333333333333`
 
-### Configuración en scaffold.config.ts
+### Configuration in scaffold.config.ts
 ```typescript
 const hyperEVMTestnet = {
   id: 998,
@@ -168,8 +168,8 @@ const hyperEVMTestnet = {
   network: "hyperevm-testnet",
   nativeCurrency: {
     decimals: 18,
-    name: "Ether",
-    symbol: "ETH",
+    name: "Hyperliquid",
+    symbol: "HYPE",
   },
   rpcUrls: {
     default: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] },
@@ -181,61 +181,61 @@ const hyperEVMTestnet = {
 };
 ```
 
-## 🚨 Consideraciones Importantes
+## 🚨 Important Considerations
 
-### Gas y Límites
-- El contrato está configurado con un límite de gas de 12,000,000 para hyperEVM
-- Las llamadas a CoreWriter pueden consumir más gas que operaciones normales
+### Gas and Limits
+- The contract is configured with a gas limit of 12,000,000 for hyperEVM
+- CoreWriter calls may consume more gas than normal operations
 
-### Seguridad
-- Solo el propietario puede retirar ETH del contrato
-- Las acciones de CoreWriter se ejecutan inmediatamente
-- Validación de existencia de acciones antes de consultarlas
+### Security
+- Only the owner can withdraw HYPE from the contract
+- CoreWriter actions are executed immediately
+- Existence of actions is validated before querying them
 
-### Costos
-- Despliegue: ~2-3 ETH (gas fees)
-- Operaciones CoreWriter: ~0.001-0.01 ETH
-- Órdenes límite: ~0.01-0.1 ETH
+### Costs
+- Deployment: ~2-3 HYPE (gas fees)
+- CoreWriter operations: ~0.001-0.01 HYPE
+- Limit orders: ~0.01-0.1 HYPE
 
-### Tipos de Datos
-- Precios: Multiplicados por 10^8 (uint64)
-- Tamaños: Multiplicados por 10^8 (uint64)
-- USD: Multiplicados por 10^6 (uint64)
-- Wei: Cantidades en wei (uint64)
+### Data Types
+- Prices: Multiplied by 10^8 (uint64)
+- Sizes: Multiplied by 10^8 (uint64)
+- USD: Multiplied by 10^6 (uint64)
+- Wei: Amounts in wei (uint64)
 
-## 🔧 Personalización
+## 🔧 Customization
 
-### Agregar Nuevas Acciones
-1. Agregar nuevo tipo en el enum `ActionType`
-2. Crear función `send[NuevaAccion]()` con los parámetros correctos
-3. Actualizar la función `_getActionTypeString()`
-4. Agregar función de prueba si es necesario
+### Add New Actions
+1. Add new type in the `ActionType` enum
+2. Create `send[NewAction]()` function with the correct parameters
+3. Update the `_getActionTypeString()` function
+4. Add a test function if necessary
 
-### Modificar Funciones Existentes
-1. Editar las funciones `send*` en el contrato
-2. Actualizar las pruebas correspondientes
-3. Regenerar los tipos: `yarn hardhat:compile`
+### Modify Existing Functions
+1. Edit the `send*` functions in the contract
+2. Update the corresponding tests
+3. Regenerate types: `yarn hardhat:compile`
 
-## 📞 Soporte
+## 📞 Support
 
-Para problemas o preguntas:
-1. Revisa los logs de despliegue
-2. Verifica la configuración de red
-3. Asegúrate de tener saldo suficiente en la cuenta
-4. Consulta la [documentación oficial de CoreWriter](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
+For issues or questions:
+1. Check the deployment logs
+2. Verify network configuration
+3. Make sure your account has enough balance
+4. Consult the [official CoreWriter documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
 
-## 🔗 Enlaces Útiles
+## 🔗 Useful Links
 
-- [Documentación de hyperEVM](https://docs.hyperliquid.xyz/)
-- [Documentación de CoreWriter](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
-- [Explorador de hyperEVM Testnet](https://testnet.purrsec.com/)
-- [Faucet de hyperEVM](https://faucet.hyperliquid-testnet.xyz) (si está disponible)
+- [hyperEVM Documentation](https://docs.hyperliquid.xyz/)
+- [CoreWriter Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
+- [hyperEVM Testnet Explorer](https://testnet.purrsec.com/)
+- [hyperEVM Faucet](https://faucet.hyperliquid-testnet.xyz) (if available)
 
-## 📝 Ejemplos de Uso
+## 📝 Usage Examples
 
-### Orden Límite
+### Limit Order
 ```solidity
-// Comprar 100 unidades del activo 1 a precio 1000
+// Buy 100 units of asset 1 at price 1000
 sendLimitOrder(
     1,              // asset ID
     true,           // isBuy
@@ -243,13 +243,13 @@ sendLimitOrder(
     10000000000,    // sz (100 * 10^8)
     false,          // reduceOnly
     2,              // tif (Gtc)
-    0               // cloid (sin cloid)
+    0               // cloid (no cloid)
 );
 ```
 
-### Transferencia de Vault
+### Vault Transfer
 ```solidity
-// Depositar 1000 USD en el vault
+// Deposit 1000 USD into the vault
 sendVaultTransfer(
     msg.sender,     // vault
     true,           // isDeposit
@@ -257,16 +257,16 @@ sendVaultTransfer(
 );
 ```
 
-### Delegación de Tokens
+### Token Delegation
 ```solidity
-// Delegar 1 ETH al validador
+// Delegate 1 HYPE to the validator
 sendTokenDelegate(
     0x1234...,      // validator
-    1000000000000000000, // amount (1 ETH)
+    1000000000000000000, // amount (1 HYPE)
     false           // isUndelegate
 );
 ```
 
 ---
 
-**¡Listo para probar CoreWriter en hyperEVM testnet! 🎉** 
+**Ready to test CoreWriter on hyperEVM testnet! 🎉** 

@@ -13,7 +13,7 @@ const CoreWriterPage = () => {
   const [userActions, setUserActions] = useState<bigint[]>([]);
   const [actions, setActions] = useState<any[]>([]);
 
-  // Formularios para cada función
+  // Forms for each function
   const [limitOrderForm, setLimitOrderForm] = useState({
     asset: 1,
     isBuy: true,
@@ -32,18 +32,18 @@ const CoreWriterPage = () => {
 
   const [tokenDelegateForm, setTokenDelegateForm] = useState({
     validator: "0x1234567890123456789012345678901234567890",
-    amount: "1000000000000000000", // 1 ETH
+    amount: "1000000000000000000", // 1 HYPE
     isUndelegate: false,
   });
 
   const [stakingForm, setStakingForm] = useState({
-    amount: "1000000000000000000", // 1 ETH
+    amount: "1000000000000000000", // 1 HYPE
   });
 
   const [spotSendForm, setSpotSendForm] = useState({
     destination: "",
     tokenId: 1,
-    amount: "1000000000000000000", // 1 ETH
+    amount: "1000000000000000000", // 1 HYPE
   });
 
   const [usdTransferForm, setUsdTransferForm] = useState({
@@ -62,7 +62,7 @@ const CoreWriterPage = () => {
     apiWalletName: "Test API Wallet",
   });
 
-  // Hooks para leer datos del contrato
+  // Hooks to read contract data
   const { data: contractActionCounter } = useScaffoldReadContract({
     contractName: "YourContract",
     functionName: "actionCounter",
@@ -74,7 +74,7 @@ const CoreWriterPage = () => {
     args: [address],
   });
 
-  // Hooks para escribir en el contrato
+  // Hooks to write to the contract
   const { writeContractAsync: writeLimitOrder } = useScaffoldWriteContract("YourContract");
   const { writeContractAsync: writeVaultTransfer } = useScaffoldWriteContract("YourContract");
   const { writeContractAsync: writeTokenDelegate } = useScaffoldWriteContract("YourContract");
@@ -85,7 +85,7 @@ const CoreWriterPage = () => {
   const { writeContractAsync: writeFinalize } = useScaffoldWriteContract("YourContract");
   const { writeContractAsync: writeAddApiWallet } = useScaffoldWriteContract("YourContract");
 
-  // Actualizar datos cuando cambien
+  // Update data when it changes
   useEffect(() => {
     if (contractActionCounter !== undefined) {
       setActionCounter(contractActionCounter);
@@ -98,15 +98,15 @@ const CoreWriterPage = () => {
     }
   }, [contractUserActions]);
 
-  // Cargar acciones del usuario
+  // Load user actions
   useEffect(() => {
     const loadActions = async () => {
       if (userActions.length > 0) {
         const actionsData = [];
         for (let i = 0; i < Math.min(userActions.length, 10); i++) {
           try {
-            // Aquí necesitarías un hook para leer getAction, pero por simplicidad
-            // usamos un placeholder
+            // Here you would need a hook to read getAction, but for simplicity
+            // we use a placeholder
             actionsData.push({
               id: userActions[i],
               creator: address,
@@ -125,7 +125,7 @@ const CoreWriterPage = () => {
     loadActions();
   }, [userActions, address]);
 
-  // Funciones para enviar transacciones
+  // Functions to send transactions
   const handleLimitOrder = async () => {
     try {
       await writeLimitOrder({
@@ -140,9 +140,9 @@ const CoreWriterPage = () => {
           BigInt(limitOrderForm.cloid),
         ],
       });
-      notification.success("Orden límite enviada exitosamente!");
+      notification.success("Limit order sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar orden límite");
+      notification.error("Error sending limit order");
       console.error(error);
     }
   };
@@ -153,9 +153,9 @@ const CoreWriterPage = () => {
         functionName: "sendVaultTransfer",
         args: [vaultTransferForm.vault || address, vaultTransferForm.isDeposit, BigInt(vaultTransferForm.usd)],
       });
-      notification.success("Transferencia de vault enviada exitosamente!");
+      notification.success("Vault transfer sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar transferencia de vault");
+      notification.error("Error sending vault transfer");
       console.error(error);
     }
   };
@@ -166,9 +166,9 @@ const CoreWriterPage = () => {
         functionName: "sendTokenDelegate",
         args: [tokenDelegateForm.validator, BigInt(tokenDelegateForm.amount), tokenDelegateForm.isUndelegate],
       });
-      notification.success("Delegación de tokens enviada exitosamente!");
+      notification.success("Token delegation sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar delegación de tokens");
+      notification.error("Error sending token delegation");
       console.error(error);
     }
   };
@@ -179,9 +179,9 @@ const CoreWriterPage = () => {
         functionName: "sendStakingDeposit",
         args: [BigInt(stakingForm.amount)],
       });
-      notification.success("Depósito en staking enviado exitosamente!");
+      notification.success("Staking deposit sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar depósito en staking");
+      notification.error("Error sending staking deposit");
       console.error(error);
     }
   };
@@ -192,9 +192,9 @@ const CoreWriterPage = () => {
         functionName: "sendStakingWithdraw",
         args: [BigInt(stakingForm.amount)],
       });
-      notification.success("Retiro de staking enviado exitosamente!");
+      notification.success("Staking withdrawal sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar retiro de staking");
+      notification.error("Error sending staking withdrawal");
       console.error(error);
     }
   };
@@ -205,9 +205,9 @@ const CoreWriterPage = () => {
         functionName: "sendSpotSend",
         args: [spotSendForm.destination || address, BigInt(spotSendForm.tokenId), BigInt(spotSendForm.amount)],
       });
-      notification.success("Envío de tokens spot enviado exitosamente!");
+      notification.success("Spot token send sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar tokens spot");
+      notification.error("Error sending spot tokens");
       console.error(error);
     }
   };
@@ -218,9 +218,9 @@ const CoreWriterPage = () => {
         functionName: "sendUsdClassTransfer",
         args: [BigInt(usdTransferForm.ntl), usdTransferForm.toPerp],
       });
-      notification.success("Transferencia USD class enviada exitosamente!");
+      notification.success("USD class transfer sent successfully!");
     } catch (error) {
-      notification.error("Error al enviar transferencia USD class");
+      notification.error("Error sending USD class transfer");
       console.error(error);
     }
   };
@@ -231,9 +231,9 @@ const CoreWriterPage = () => {
         functionName: "sendFinalizeEvmContract",
         args: [BigInt(finalizeForm.tokenId), finalizeForm.variant, BigInt(finalizeForm.createNonce)],
       });
-      notification.success("Finalización de contrato EVM enviada exitosamente!");
+      notification.success("EVM contract finalization sent successfully!");
     } catch (error) {
-      notification.error("Error al finalizar contrato EVM");
+      notification.error("Error finalizing EVM contract");
       console.error(error);
     }
   };
@@ -244,9 +244,9 @@ const CoreWriterPage = () => {
         functionName: "sendAddApiWallet",
         args: [apiWalletForm.apiWallet, apiWalletForm.apiWalletName],
       });
-      notification.success("Wallet API agregada exitosamente!");
+      notification.success("API wallet added successfully!");
     } catch (error) {
-      notification.error("Error al agregar wallet API");
+      notification.error("Error adding API wallet");
       console.error(error);
     }
   };
