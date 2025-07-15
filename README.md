@@ -66,7 +66,7 @@ This project is a real integration of CoreWriter on hyperEVM testnet, using Scaf
 
 ---
 
-## 🤪 Testing
+## 🧪 Testing
 
 ```bash
 yarn test
