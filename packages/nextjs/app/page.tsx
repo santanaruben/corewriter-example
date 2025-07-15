@@ -255,17 +255,15 @@ const CoreWriterPage = () => {
     <div className="flex flex-col items-center py-10 px-4 max-w-6xl mx-auto">
       <h1 className="text-4xl font-bold mb-2">CoreWriter - hyperEVM</h1>
       <p className="mb-6 text-center text-base-content/80">
-        Interfaz dedicada para interactuar con el contrato <b>CoreWriter</b> en la testnet de hyperEVM.
+        Dedicated interface to interact with the <b>CoreWriter</b> contract on the hyperEVM testnet.
         <br />
-        Prueba las funciones principales, consulta el historial de acciones y aprende cómo funciona cada operación.
+        Test the main functions, check the action history, and learn how each operation works.
       </p>
 
       <div className="mb-6 flex flex-col items-center">
-        <span className="font-medium">Tu dirección conectada:</span>
+        <span className="font-medium">Your connected address:</span>
         <Address address={address} />
-        <div className="mt-2 text-sm text-base-content/60">
-          Contador de acciones: {actionCounter?.toString() || "0"}
-        </div>
+        <div className="mt-2 text-sm text-base-content/60">Action counter: {actionCounter?.toString() || "0"}</div>
       </div>
 
       <div className="tabs tabs-boxed mb-8">
@@ -273,29 +271,29 @@ const CoreWriterPage = () => {
           className={`tab ${selectedTab === "acciones" ? "tab-active" : ""}`}
           onClick={() => setSelectedTab("acciones")}
         >
-          Acciones rápidas
+          Quick Actions
         </button>
         <button
           className={`tab ${selectedTab === "historial" ? "tab-active" : ""}`}
           onClick={() => setSelectedTab("historial")}
         >
-          Historial de acciones
+          Action History
         </button>
         <button
           className={`tab ${selectedTab === "ayuda" ? "tab-active" : ""}`}
           onClick={() => setSelectedTab("ayuda")}
         >
-          Ayuda
+          Help
         </button>
       </div>
 
       <div className="w-full">
         {selectedTab === "acciones" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Orden Límite */}
+            {/* Limit Order */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">📈 Orden Límite</h2>
+                <h2 className="card-title">📈 Limit Order</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
@@ -316,12 +314,12 @@ const CoreWriterPage = () => {
                         checked={limitOrderForm.isBuy}
                         onChange={e => setLimitOrderForm({ ...limitOrderForm, isBuy: e.target.checked })}
                       />
-                      <span className="label-text ml-2">Compra</span>
+                      <span className="label-text ml-2">Buy</span>
                     </label>
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Precio límite (10^8)</span>
+                      <span className="label-text">Limit Price (10^8)</span>
                     </label>
                     <input
                       type="text"
@@ -332,7 +330,7 @@ const CoreWriterPage = () => {
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Tamaño (10^8)</span>
+                      <span className="label-text">Size (10^8)</span>
                     </label>
                     <input
                       type="text"
@@ -342,20 +340,20 @@ const CoreWriterPage = () => {
                     />
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleLimitOrder}>
-                    Enviar Orden Límite
+                    Send Limit Order
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Transferencia de Vault */}
+            {/* Vault Transfer */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">🏦 Transferencia de Vault</h2>
+                <h2 className="card-title">🏦 Vault Transfer</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
-                      <span className="label-text">Dirección del Vault</span>
+                      <span className="label-text">Vault Address</span>
                     </label>
                     <input
                       type="text"
@@ -373,12 +371,12 @@ const CoreWriterPage = () => {
                         checked={vaultTransferForm.isDeposit}
                         onChange={e => setVaultTransferForm({ ...vaultTransferForm, isDeposit: e.target.checked })}
                       />
-                      <span className="label-text ml-2">Depósito</span>
+                      <span className="label-text ml-2">Deposit</span>
                     </label>
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Cantidad USD (10^6)</span>
+                      <span className="label-text">Amount USD (10^6)</span>
                     </label>
                     <input
                       type="text"
@@ -388,20 +386,20 @@ const CoreWriterPage = () => {
                     />
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleVaultTransfer}>
-                    Enviar Transferencia
+                    Send Transfer
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Delegación de Tokens */}
+            {/* Token Delegation */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">🎯 Delegación de Tokens</h2>
+                <h2 className="card-title">🎯 Token Delegation</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
-                      <span className="label-text">Validador</span>
+                      <span className="label-text">Validator</span>
                     </label>
                     <input
                       type="text"
@@ -412,7 +410,7 @@ const CoreWriterPage = () => {
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Cantidad (Wei)</span>
+                      <span className="label-text">Amount (Wei)</span>
                     </label>
                     <input
                       type="text"
@@ -433,7 +431,7 @@ const CoreWriterPage = () => {
                     </label>
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleTokenDelegate}>
-                    Enviar Delegación
+                    Send Delegation
                   </button>
                 </div>
               </div>
@@ -446,7 +444,7 @@ const CoreWriterPage = () => {
                 <div className="space-y-3">
                   <div>
                     <label className="label">
-                      <span className="label-text">Cantidad (Wei)</span>
+                      <span className="label-text">Amount (Wei)</span>
                     </label>
                     <input
                       type="text"
@@ -457,24 +455,24 @@ const CoreWriterPage = () => {
                   </div>
                   <div className="flex gap-2">
                     <button className="btn btn-primary flex-1" onClick={handleStakingDeposit}>
-                      Depositar
+                      Deposit
                     </button>
                     <button className="btn btn-secondary flex-1" onClick={handleStakingWithdraw}>
-                      Retirar
+                      Withdraw
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Envío Spot */}
+            {/* Spot Send */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">💸 Envío Spot</h2>
+                <h2 className="card-title">💸 Spot Send</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
-                      <span className="label-text">Destino</span>
+                      <span className="label-text">Destination</span>
                     </label>
                     <input
                       type="text"
@@ -497,7 +495,7 @@ const CoreWriterPage = () => {
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Cantidad (Wei)</span>
+                      <span className="label-text">Amount (Wei)</span>
                     </label>
                     <input
                       type="text"
@@ -507,20 +505,20 @@ const CoreWriterPage = () => {
                     />
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleSpotSend}>
-                    Enviar Tokens
+                    Send Tokens
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Transferencia USD Class */}
+            {/* USD Class Transfer */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">💵 Transferencia USD Class</h2>
+                <h2 className="card-title">💵 USD Class Transfer</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
-                      <span className="label-text">Cantidad NTL (10^6)</span>
+                      <span className="label-text">NTL Amount (10^6)</span>
                     </label>
                     <input
                       type="text"
@@ -537,20 +535,20 @@ const CoreWriterPage = () => {
                         checked={usdTransferForm.toPerp}
                         onChange={e => setUsdTransferForm({ ...usdTransferForm, toPerp: e.target.checked })}
                       />
-                      <span className="label-text ml-2">A Perp</span>
+                      <span className="label-text ml-2">To Perp</span>
                     </label>
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleUsdTransfer}>
-                    Enviar Transferencia
+                    Send Transfer
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Finalizar Contrato EVM */}
+            {/* Finalize EVM Contract */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">📋 Finalizar Contrato EVM</h2>
+                <h2 className="card-title">📋 Finalize EVM Contract</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
@@ -565,7 +563,7 @@ const CoreWriterPage = () => {
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Variante</span>
+                      <span className="label-text">Variant</span>
                     </label>
                     <input
                       type="number"
@@ -586,16 +584,16 @@ const CoreWriterPage = () => {
                     />
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleFinalize}>
-                    Finalizar Contrato
+                    Finalize Contract
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Agregar Wallet API */}
+            {/* Add API Wallet */}
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">🔑 Agregar Wallet API</h2>
+                <h2 className="card-title">🔑 Add API Wallet</h2>
                 <div className="space-y-3">
                   <div>
                     <label className="label">
@@ -610,7 +608,7 @@ const CoreWriterPage = () => {
                   </div>
                   <div>
                     <label className="label">
-                      <span className="label-text">Nombre</span>
+                      <span className="label-text">Name</span>
                     </label>
                     <input
                       type="text"
@@ -620,7 +618,7 @@ const CoreWriterPage = () => {
                     />
                   </div>
                   <button className="btn btn-primary w-full" onClick={handleAddApiWallet}>
-                    Agregar Wallet API
+                    Add API Wallet
                   </button>
                 </div>
               </div>
@@ -631,18 +629,18 @@ const CoreWriterPage = () => {
         {selectedTab === "historial" && (
           <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
-              <h2 className="card-title">📊 Historial de Acciones</h2>
+              <h2 className="card-title">📊 Action History</h2>
               {actions.length > 0 ? (
                 <div className="overflow-x-auto">
                   <table className="table table-zebra">
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Creador</th>
-                        <th>Tipo</th>
-                        <th>Estado</th>
-                        <th>Resultado</th>
-                        <th>Fecha</th>
+                        <th>Creator</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Result</th>
+                        <th>Date</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -655,7 +653,7 @@ const CoreWriterPage = () => {
                           <td>{action.actionType}</td>
                           <td>
                             <span className={`badge ${action.executed ? "badge-success" : "badge-warning"}`}>
-                              {action.executed ? "Ejecutada" : "Pendiente"}
+                              {action.executed ? "Executed" : "Pending"}
                             </span>
                           </td>
                           <td>{action.result}</td>
@@ -667,9 +665,9 @@ const CoreWriterPage = () => {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-base-content/60">No hay acciones para mostrar</p>
+                  <p className="text-base-content/60">No actions to display</p>
                   <p className="text-sm text-base-content/40">
-                    Crea algunas acciones en la pestaña &quot;Acciones rápidas&quot;
+                    Create some actions in the &quot;Quick Actions&quot; tab
                   </p>
                 </div>
               )}
@@ -679,69 +677,69 @@ const CoreWriterPage = () => {
 
         {selectedTab === "ayuda" && (
           <div className="prose max-w-none">
-            <h2>¿Qué es CoreWriter?</h2>
+            <h2>What is CoreWriter?</h2>
             <p>
-              CoreWriter es el contrato oficial para interactuar con HyperCore en hyperEVM. Permite enviar órdenes,
-              transferir fondos, delegar, hacer staking y más, todo desde un solo contrato.
+              CoreWriter is the official contract to interact with HyperCore on hyperEVM. It allows you to send orders,
+              transfer funds, delegate, stake, and more, all from a single contract.
             </p>
 
-            <h3>Funciones principales expuestas:</h3>
+            <h3>Main exposed functions:</h3>
             <ul>
               <li>
-                <b>sendLimitOrder</b>: Enviar órdenes límite de trading.
+                <b>sendLimitOrder</b>: Send trading limit orders.
               </li>
               <li>
-                <b>sendVaultTransfer</b>: Transferir fondos desde/hacia vaults.
+                <b>sendVaultTransfer</b>: Transfer funds to/from vaults.
               </li>
               <li>
-                <b>sendTokenDelegate</b>: Delegar tokens a validadores.
+                <b>sendTokenDelegate</b>: Delegate tokens to validators.
               </li>
               <li>
-                <b>sendStakingDeposit</b>: Depositar en staking.
+                <b>sendStakingDeposit</b>: Deposit into staking.
               </li>
               <li>
-                <b>sendStakingWithdraw</b>: Retirar de staking.
+                <b>sendStakingWithdraw</b>: Withdraw from staking.
               </li>
               <li>
-                <b>sendSpotSend</b>: Enviar tokens spot.
+                <b>sendSpotSend</b>: Send spot tokens.
               </li>
               <li>
-                <b>sendUsdClassTransfer</b>: Transferir USD class.
+                <b>sendUsdClassTransfer</b>: Transfer USD class.
               </li>
               <li>
-                <b>sendFinalizeEvmContract</b>: Finalizar contratos EVM.
+                <b>sendFinalizeEvmContract</b>: Finalize EVM contracts.
               </li>
               <li>
-                <b>sendAddApiWallet</b>: Agregar wallet API.
+                <b>sendAddApiWallet</b>: Add API wallet.
               </li>
             </ul>
 
-            <h3>Tipos de datos importantes:</h3>
+            <h3>Important data types:</h3>
             <ul>
               <li>
-                <b>Precios</b>: Multiplicados por 10^8 (uint64)
+                <b>Prices</b>: Multiplied by 10^8 (uint64)
               </li>
               <li>
-                <b>Tamaños</b>: Multiplicados por 10^8 (uint64)
+                <b>Sizes</b>: Multiplied by 10^8 (uint64)
               </li>
               <li>
-                <b>USD</b>: Multiplicados por 10^6 (uint64)
+                <b>USD</b>: Multiplied by 10^6 (uint64)
               </li>
               <li>
-                <b>Wei</b>: Cantidades en wei (uint64)
+                <b>Wei</b>: Amounts in wei (uint64)
               </li>
             </ul>
 
             <p>
-              Consulta la{" "}
+              See the{" "}
               <a
                 href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                documentación oficial de CoreWriter
+                official CoreWriter documentation
               </a>{" "}
-              para más detalles.
+              for more details.
             </p>
           </div>
         )}
