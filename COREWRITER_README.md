@@ -226,7 +226,7 @@ For issues or questions:
 
 ## 🔗 Useful Links
 
-- [hyperEVM Documentation](https://docs.hyperliquid.xyz/)
+- [hyperEVM Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs)
 - [CoreWriter Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
 - [hyperEVM Testnet Explorer](https://testnet.purrsec.com/)
 - [hyperEVM Faucet](https://faucet.hyperliquid-testnet.xyz) (if available)

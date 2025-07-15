@@ -83,9 +83,9 @@ yarn test
 ---
 
 ## 📚 Useful Resources
-- [Official CoreWriter Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
+- [Official Documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/hyperevm/interacting-with-hypercore#corewriter-contract)
 - [Scaffold-ETH 2](https://github.com/scaffold-eth/se-2)
-- [hyperEVM](https://docs.hyperliquid.xyz/)
+- [Tools](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm/tools-for-hyperevm-builders)
 
 ---
 
